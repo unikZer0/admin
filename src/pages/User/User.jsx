@@ -1,14 +1,14 @@
 import PageBreadcrumb from "../../components/common/PageBreadCrumb";
 import ComponentCard from "../../components/common/ComponentCard";
-import LineChartOne from "../../components/charts/line/LineChartOne";
+import BasicTableOne from "../../components/tables/UserTable";
 
-export default function LineChart() {
+export default function User() {
   return (
     <>
-      <PageBreadcrumb pageTitle="Line Chart" />
+      <PageBreadcrumb pageTitle="Basic Tables" />
       <div className="space-y-6">
-        <ComponentCard title="Line Chart 1">
-          <LineChartOne />
+        <ComponentCard title="Basic Table 1">
+          <BasicTableOne />
         </ComponentCard>
       </div>
     </>
