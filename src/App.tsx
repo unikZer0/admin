@@ -11,6 +11,7 @@ import Home from "./pages/Dashboard/Home";
 import Shop from "./pages/Shop/Shop";
 import User from './pages/User/User'
 import Product from "./pages/Product/Product"
+import ProtectedRoute from '../src/components/ProtectedRoute/ProtectedRoute'
 
 export default function App() {
   return (
@@ -19,25 +20,19 @@ export default function App() {
         <ScrollToTop />
         <Routes>
           {/* Dashboard Layout */}
-          <Route element={<AppLayout />}>
-            <Route index path="/dashboard" element={<Home />} />
-
-            {/* Others Page */}
-            <Route path="/profile" element={<UserProfiles />} />
-
-            {/* Forms */}
-            <Route path="/form-elements" element={<FormElements />} />
-            {/* Shop */}
-            <Route path="/shops" element={<Shop />} />
-              {/* User */}
-            <Route path="/users" element={<User />} />
-              {/* Product */}
-            <Route path="/products" element={<Product />} />
-              {/* Charts */}
-            <Route path="/line-chart" element={<LineChart />} />
-            <Route path="/bar-chart" element={<BarChart />} />
-
+          <Route element={<ProtectedRoute />}>
+            <Route element={<AppLayout />}>
+              <Route index path="/dashboard" element={<Home />} />
+              <Route path="/profile" element={<UserProfiles />} />
+              <Route path="/form-elements" element={<FormElements />} />
+              <Route path="/shops" element={<Shop />} />
+              <Route path="/users" element={<User />} />
+              <Route path="/products" element={<Product />} />
+              <Route path="/line-chart" element={<LineChart />} />
+              <Route path="/bar-chart" element={<BarChart />} />
+            </Route>
           </Route>
+
 
           {/* Auth Layout */}
           <Route path="/" element={<SignIn />} />
