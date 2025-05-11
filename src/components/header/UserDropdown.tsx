@@ -20,10 +20,17 @@ export default function UserDropdown() {
         className="flex items-center text-gray-700 dropdown-toggle dark:text-gray-400"
       >
         <span className="mr-3 overflow-hidden rounded-full h-11 w-11">
-          <img src="/images/user/owner.jpg" alt="User" />
+          <img src="/images/user/prowhatsapp.jpg" alt="User" />
         </span>
 
-        <span className="block mr-1 font-medium text-theme-sm">Musharof</span>
+        <span className="block mr-1 font-medium text-theme-lg">Unik ch</span>
+        <span className="reletive text-xs">(Admin online)
+          <span
+          className={`absolute left-0 bottom-0.5 z-10 h-2 w-2 rounded-full bg-green-400
+          }`}
+        >
+          </span>
+        </span>
         <svg
           className={`stroke-gray-500 dark:stroke-gray-400 transition-transform duration-200 ${
             isOpen ? "rotate-180" : ""
@@ -43,7 +50,7 @@ export default function UserDropdown() {
           />
         </svg>
       </button>
-
+          
       <Dropdown
         isOpen={isOpen}
         onClose={closeDropdown}

@@ -1,19 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router";
-import {User,Package} from 'lucide-react'
+import {User,Package,Store} from 'lucide-react'
 
 // Assume these icons are imported from an icon library
 import {
-  BoxCubeIcon,
-  CalenderIcon,
   ChevronDownIcon,
   GridIcon,
   HorizontaLDots,
   ListIcon,
-  PageIcon,
   PieChartIcon,
-  TableIcon,
-  UserCircleIcon,
 } from "../icons";
 import { useSidebar } from "../context/SidebarContext";
 
@@ -34,14 +29,22 @@ const navItems: NavItem[] = [
     icon: <User />,
     name: "Users",
     subItems: [
-      { name: "Users", path: "/user", pro: false },
+      { name: "Users", path: "/users", pro: false },
     ],
   },
   {
     icon: <Package />,
     name: "Products",
     subItems: [
-      { name: "products",path: "/product", pro: false },
+      { name: "products",path: "/products", pro: false },
+    ],
+    
+  },
+  {
+    icon: <Store />,
+    name: "Shops",
+    subItems: [
+      { name: "Shops",path: "/shops", pro: false },
     ],
     
   },

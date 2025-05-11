@@ -8,6 +8,7 @@ import AppLayout from "./layout/AppLayout";
 import { ScrollToTop } from "./components/common/ScrollToTop";
 import Home from "./pages/Dashboard/Home";
 //user
+import Shop from "./pages/Shop/Shop";
 import User from './pages/User/User'
 import Product from "./pages/Product/Product"
 
@@ -26,11 +27,12 @@ export default function App() {
 
             {/* Forms */}
             <Route path="/form-elements" element={<FormElements />} />
-
+            {/* Shop */}
+            <Route path="/shops" element={<Shop />} />
               {/* User */}
-            <Route path="/User" element={<User />} />
+            <Route path="/users" element={<User />} />
               {/* Product */}
-            <Route path="/Product" element={<Product />} />
+            <Route path="/products" element={<Product />} />
               {/* Charts */}
             <Route path="/line-chart" element={<LineChart />} />
             <Route path="/bar-chart" element={<BarChart />} />
