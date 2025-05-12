@@ -12,14 +12,17 @@ import { useEffect, useState } from "react";
 
 export default function UserTable() {
   type User = {
-  UID: string;
-  Email: string;
-  Phone: string;
-  Sex: string;
-  Image?: string;
-  RegistrationDate: string;
-};
-  const userRole = localStorage.getItem('role')
+    UID: string;
+    FirstName: string;
+    LastName: string;
+    Email: string;
+    Phone: string;
+    Role_id: number;
+    Sex: string;
+    Image?: string;
+    RegistrationDate: string;
+  };
+  const userRole = localStorage.getItem("role");
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -27,11 +30,14 @@ export default function UserTable() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await axios.post(`http://localhost:3000/api/admin/getusers/`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        const res = await axios.post(
+          `http://localhost:3000/api/admin/getusers/`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
         setUsers(res.data.data);
       } catch (error) {
         console.error(error);
@@ -43,9 +49,9 @@ export default function UserTable() {
 
     fetchUsers();
   }, []);
-if (userRole !== '1' && userRole !== '2') {
-  return <div>You are not authorized to view this page. </div>;
-}
+  if (userRole !== "1" && userRole !== "2") {
+    return <div>You are not authorized to view this page. </div>;
+  }
   if (loading) return <div className="text-gray-500">Loading...</div>;
   if (error) return <div className="text-red-500">{error}</div>;
 
@@ -55,7 +61,8 @@ if (userRole !== '1' && userRole !== '2') {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableCell isHeader>Profile</TableCell>
+              <TableCell isHeader>Profile image</TableCell>
+              <TableCell isHeader>Profile </TableCell>
               <TableCell isHeader>UID</TableCell>
               <TableCell isHeader>Email</TableCell>
               <TableCell isHeader>Phone</TableCell>
@@ -68,7 +75,7 @@ if (userRole !== '1' && userRole !== '2') {
             {users.map((user) => (
               <TableRow key={user.UID}>
                 <TableCell>
-                  <div className="flex items-center gap-3">
+                  <div className="ml-10 flex items-center gap-3">
                     <div className="w-10 h-10 overflow-hidden rounded-full">
                       <img
                         src={user.Image || "/images/default-profile.jpg"}
@@ -77,6 +84,20 @@ if (userRole !== '1' && userRole !== '2') {
                       />
                     </div>
                   </div>
+                </TableCell>
+                <TableCell>
+                  <div className="">
+                      <span className="block font-medium text-gray-800 text-theme-sm dark:text-white/90">
+                        {user.FirstName} {user.LastName}
+                      </span>
+                      <span className="block text-gray-500 text-theme-xs dark:text-gray-400">
+                        {user.Role_id === 1
+                          ? "admin"
+                          : user.Role_id === 2
+                          ? "manager"
+                          : "customer"}
+                      </span>
+                    </div>
                 </TableCell>
                 <TableCell>{user.UID}</TableCell>
                 <TableCell>{user.Email}</TableCell>
