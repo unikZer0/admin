@@ -13,9 +13,7 @@ import { useEffect } from "react";
 interface LoginResponse {
   token: string;
   role: string;
-  user: {
-    id: number;
-  };
+    userId: string;
 }
 
 export default function SignInForm() {
@@ -53,9 +51,10 @@ useEffect(() => {
         }
       );
 
-      const { token, role } = res.data;
+      const { token, role ,userId } = res.data;
       localStorage.setItem("token", token);
       localStorage.setItem("role", role);
+      localStorage.setItem("id",userId);
       navigate('/dashboard')
     } catch (err: any) {
       if (axios.isAxiosError(err)) {
