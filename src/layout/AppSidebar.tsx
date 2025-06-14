@@ -277,27 +277,27 @@ const AppSidebar: React.FC = () => {
           !isExpanded && !isHovered ? "lg:justify-center" : "justify-start"
         }`}
       >
-        <Link to="/dashboard">
+        <Link to="/dashboard" >
           {isExpanded || isHovered || isMobileOpen ? (
             <>
               <img
                 className="dark:hidden pl-3"
-                src="/images/logo/TUV.png"
+                src="/images/logo/LOGO.png"
                 alt="Logo"
-                width={80}
-                height={40}
+                width={130}
+                height={50}
               />
               <img
                 className="hidden dark:block  pl-3"
-                src="/images/logo/TUV.png"
+                src="/images/logo/LOGO.png"
                 alt="Logo"
-                width={80}
-                height={40}
+                width={130}
+                height={50}
               />
             </>
           ) : (
             <img
-              src="/images/logo/TUV.png"
+              src="/images/logo/LOGO.png"
               alt="Logo"
               width={32}
               height={32}

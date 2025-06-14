@@ -111,8 +111,8 @@ const UserTable: React.FC = () => {
                       {user.Role_id === 1
                         ? "admin"
                         : user.Role_id === 2
-                        ? "manager"
-                        : "customer"}
+                          ? "manager"
+                          : "customer"}
                     </span>
                   </div>
                 </TableCell>
@@ -122,7 +122,7 @@ const UserTable: React.FC = () => {
                 <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">{user.Sex}</TableCell>
                 <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
                   {user.Registration_Date &&
-                  !isNaN(new Date(user.Registration_Date).getTime())
+                    !isNaN(new Date(user.Registration_Date).getTime())
                     ? new Date(user.Registration_Date).toLocaleDateString()
                     : "Invalid Date"}
                 </TableCell>
