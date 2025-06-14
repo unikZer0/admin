@@ -5,8 +5,8 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-import Button  from "../ui/button/Button";
-import {UserPlus,UserMinus} from "lucide-react";
+import Button from "../ui/button/Button";
+import { UserPlus, UserMinus } from "lucide-react";
 import Badge from "../ui/badge/Badge";
 
 interface Order {
@@ -232,8 +232,8 @@ export default function ProductTable() {
                       order.status === "Active"
                         ? "success"
                         : order.status === "Pending"
-                        ? "warning"
-                        : "error"
+                          ? "warning"
+                          : "error"
                     }
                   >
                     {order.status}
@@ -252,17 +252,17 @@ export default function ProductTable() {
                   {order.budget}
                 </TableCell>
                 <Button
-                                size="sm"
-                                variant="primary"
-                                endIcon={<UserPlus />}
-                              >
-                              </Button>
+                  size="sm"
+                  variant="primary"
+                  endIcon={<UserPlus />}
+                >
+                </Button>
                 <Button
-                                size="sm"
-                                variant="danger"
-                                endIcon={<UserMinus />}
-                              >
-                              </Button>
+                  size="sm"
+                  variant="danger"
+                  endIcon={<UserMinus />}
+                >
+                </Button>
               </TableRow>
             ))}
           </TableBody>
