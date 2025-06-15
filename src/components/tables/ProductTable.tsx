@@ -6,7 +6,7 @@ import {
   TableRow,
 } from "../ui/table";
 import Button  from "../ui/button/Button";
-import {UserPlus,UserMinus} from "lucide-react";
+import {UserPen,UserMinus} from "lucide-react";
 import Badge from "../ui/badge/Badge";
 
 interface Order {
@@ -254,7 +254,7 @@ export default function ProductTable() {
                 <Button
                                 size="sm"
                                 variant="primary"
-                                endIcon={<UserPlus />}
+                                endIcon={<UserPen />}
                               >
                               </Button>
                 <Button
