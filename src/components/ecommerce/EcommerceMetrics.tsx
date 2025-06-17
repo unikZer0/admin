@@ -82,10 +82,10 @@ export default function EcommerceMetrics() {
               {kpis.customerdata.count ?? "-"}
             </h4>
           </div>
-          <Badge color={customerPercentage >= 0 ? "success" : "error"}>
+          {/* <Badge color={customerPercentage >= 0 ? "success" : "error"}>
             {customerPercentage >= 0 ? <ArrowUpIcon /> : <ArrowDownIcon />}
             {Math.abs(customerPercentage).toFixed(2)}%
-          </Badge>
+          </Badge> */}
         </div>
       </div>
 
@@ -104,10 +104,10 @@ export default function EcommerceMetrics() {
             </h4>
           </div>
 
-          <Badge color={orderPercentage >= 0 ? "success" : "error"}>
+          {/* <Badge color={orderPercentage >= 0 ? "success" : "error"}>
             {orderPercentage >= 0 ? <ArrowUpIcon /> : <ArrowDownIcon />}
             {Math.abs(orderPercentage).toFixed(2)}%
-          </Badge>
+          </Badge> */}
         </div>
       </div>
     </div>

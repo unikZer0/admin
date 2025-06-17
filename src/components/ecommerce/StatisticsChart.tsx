@@ -7,18 +7,31 @@ export default function StatisticsChart() {
   const [categories, setCategories] = useState<string[]>([]);
   const [salesData, setSalesData] = useState<number[]>([]);
   const [revenueData, setRevenueData] = useState<number[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    axios.post("http://localhost:3000/api/admin/monthlystats",{},{
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }).then((res) => {
-      const { months, sales, revenue } = res.data;
-      setCategories(months);
-      setSalesData(sales);
-      setRevenueData(revenue);
-    });
+    axios
+      .post("http://localhost:3000/api/admin/monthlystats", {}, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        const { months = [], sales = [], revenueData = [] } = res.data;
+        console.log(res);
+        
+        setCategories(months);
+        setSalesData(sales.length === 12 ? sales : Array(12).fill(0));
+        setRevenueData(revenueData.length === 12 ? revenueData : Array(12).fill(0));
+      })
+      .catch((err) => {
+        console.error("Failed to load monthly stats:", err);
+        setError("Failed to load data");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   const options: ApexOptions = {
@@ -79,6 +92,25 @@ export default function StatisticsChart() {
       data: revenueData,
     },
   ];
+console.log(series);
+
+  if (loading) {
+    return (
+      <div className="rounded-2xl border p-5 bg-white">
+        <h3 className="text-lg font-semibold">Monthly Stats</h3>
+        <p className="text-gray-500">Loading chart...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="rounded-2xl border p-5 bg-white">
+        <h3 className="text-lg font-semibold">Monthly Stats</h3>
+        <p className="text-red-500">{error}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="rounded-2xl border p-5 bg-white">

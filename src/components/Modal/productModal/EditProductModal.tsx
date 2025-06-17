@@ -1,5 +1,5 @@
 import React from "react";
-import { Product, ProductType } from "../../hooks/useProductTable"; 
+import { Product, ProductType } from "../../../hooks/useProductTable"; 
 
 interface EditProductModalProps {
   showEditModal: boolean;
@@ -109,7 +109,6 @@ const EditProductModal: React.FC<EditProductModalProps> = ({
                 }
                 required
               >
-                <option value="">-- ເລືອກປະເພດສິນຄ້າ --</option>
                 {productTypes.map((type) => (
                   <option key={type.productType_ID} value={type.productType_ID}>
                     {type.productType_Name}

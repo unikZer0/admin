@@ -62,7 +62,6 @@ export function useProductTable(options: UseProductTableOptions = {}) {
   const [showViewModal, setShowViewModal] = useState(false);
   const [productTypes, setProductTypes] = useState<ProductType[]>([]);
 
-  // Safe localStorage access with fallback
   const getUserRole = (): string | null => {
     try {
       return localStorage.getItem("role");
@@ -83,10 +82,10 @@ export function useProductTable(options: UseProductTableOptions = {}) {
 
   const getUserId = (): string | null => {
     try {
-      return localStorage.getItem("userId") || localStorage.getItem("username") || "Admin";
+      return localStorage.getItem("userId") || localStorage.getItem("username") || "admin";
     } catch (error) {
       console.warn("LocalStorage not available:", error);
-      return "Admin";
+      return "admin";
     }
   };
 
@@ -98,8 +97,8 @@ export function useProductTable(options: UseProductTableOptions = {}) {
     Description: "",
     Status: "ມີຂາຍ",
     Image: "",
-    productType_ID: 0, // แก้จาก "" เป็น 0
-    Added_By: getUserId() || "Admin"
+    productType_ID: 0, 
+    Added_By: getUserId() || "admin"
   });
 
   const userRole = getUserRole();
@@ -209,7 +208,7 @@ export function useProductTable(options: UseProductTableOptions = {}) {
       Status: "ມີຂາຍ",
       Image: "",
       productType_ID: 0, // แก้จาก "" เป็น 0
-      Added_By: getUserId() || "Admin"
+      Added_By: getUserId() || "admin"
     });
     setShowAddModal(true);
   };
@@ -224,7 +223,7 @@ export function useProductTable(options: UseProductTableOptions = {}) {
       Status: "ມີຂາຍ",
       Image: "",
       productType_ID: 0, // แก้จาก "" เป็น 0
-      Added_By: getUserId() || "Admin"
+      Added_By: getUserId() || "admin"
     });
   };
 
@@ -351,7 +350,6 @@ export function useProductTable(options: UseProductTableOptions = {}) {
     }
   };
 
-  // ดึงประเภทสินค้าทั้งหมด
   const fetchProductTypes = async () => {
     try {
       const token = getToken();
@@ -364,7 +362,6 @@ export function useProductTable(options: UseProductTableOptions = {}) {
         setProductTypes(res.data.data);
       }
     } catch (e) {
-      // ไม่ต้องแจ้ง error
     }
   };
 
@@ -378,7 +375,7 @@ export function useProductTable(options: UseProductTableOptions = {}) {
   }, []);
 
   useEffect(() => {
-    let filtered = [...products]; // Create a copy to avoid mutations
+    let filtered = [...products]; 
 
     if (searchTerm.trim()) {
       const searchLower = searchTerm.toLowerCase().trim();
@@ -397,7 +394,6 @@ export function useProductTable(options: UseProductTableOptions = {}) {
     setFilteredProducts(filtered);
   }, [searchTerm, selectedStatus, products]);
 
-  // Status color
   const getStatusColor = (
     status: string
   ): "success" | "warning" | "error" | "info" | "primary" => {
@@ -479,7 +475,6 @@ export function useProductTable(options: UseProductTableOptions = {}) {
     setEditError("");
   };
 
-  // Return all state and functions
   return {
     products, setProducts,
     filteredProducts, setFilteredProducts,

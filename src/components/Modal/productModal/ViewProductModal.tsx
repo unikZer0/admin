@@ -1,7 +1,7 @@
 import React from "react";
 import { X, Package } from "lucide-react";
-import Badge from "../ui/badge/Badge"; 
-import { Product } from "../../hooks/useProductTable"; 
+import Badge from "../../ui/badge/Badge"; 
+import { Product } from "../../../hooks/useProductTable"; 
 
 interface ViewProductModalProps {
   showViewModal: boolean;

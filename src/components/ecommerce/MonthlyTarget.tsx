@@ -112,10 +112,10 @@ export default function MonthlyTarget() {
           <div className="max-h-[330px]" id="chartDarkStyle">
             <Chart options={options} series={series} type="radialBar" height={330} />
           </div>
-
+{/* 
           <span className="absolute left-1/2 top-full -translate-x-1/2 -translate-y-[95%] rounded-full bg-success-50 px-3 py-1 text-xs font-medium text-success-600 dark:bg-success-500/15 dark:text-success-500">
             + {(percentage - 65).toFixed(0)}%
-          </span>
+          </span> */}
         </div>
 
         <p className="mx-auto mt-10 w-full max-w-[380px] text-center text-sm text-gray-500 sm:text-base">

@@ -19,12 +19,12 @@ import {
 import Badge from "../ui/badge/Badge";
 import { useProductTable } from "../../hooks/useProductTable";
 
-// Import your new modal components
-import AddProductModal from "../Modal/AddProductModal";
-import DeleteProductModal from "../Modal/DeleteProductModal";
-import EditProductModal from "../Modal/EditProductModal";
-import ViewProductModal from "../Modal/ViewProductModal";
-import SuccessModal from "../Modal/SuccessModal"; 
+
+import AddProductModal from "../Modal/productModal/AddProductModal";
+import DeleteProductModal from "../Modal/productModal/DeleteProductModal";
+import EditProductModal from "../Modal/productModal/EditProductModal";
+import ViewProductModal from "../Modal/productModal/ViewProductModal";
+import SuccessModal from "../Modal/productModal/SuccessModal"; 
 
 const ProductTable: React.FC = () => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);

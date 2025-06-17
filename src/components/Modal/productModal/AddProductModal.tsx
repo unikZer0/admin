@@ -1,7 +1,7 @@
 import React from "react";
 import { X, Package } from "lucide-react";
-import Button from "../ui/button/Button"; // Assuming Button component path
-import { ProductType } from "../../hooks/useProductTable"; // Assuming ProductType interface from your hook
+import Button from "../../ui/button/Button"; // Assuming Button component path
+import { ProductType } from "../../../hooks/useProductTable"; // Assuming ProductType interface from your hook
 
 interface AddProductModalProps {
   showAddModal: boolean;

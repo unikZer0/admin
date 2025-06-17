@@ -9,7 +9,7 @@ import {
 } from "../ui/table";
 import Button from "../ui/button/Button";
 import { UserPlus, UserMinus } from "lucide-react";
-import UsersModal from "../Modal/UsersModal";
+import UsersModal from "../Modal/userModal/UsersModal";
 
 type User = {
   User_ID: number;
