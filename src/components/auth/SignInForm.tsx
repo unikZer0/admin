@@ -50,12 +50,12 @@ useEffect(() => {
           Password:password,
         }
       );
-
+      navigate('/dashboard')
       const { token, role ,userId } = res.data;
       localStorage.setItem("token", token);
       localStorage.setItem("role", role);
       localStorage.setItem("id",userId);
-      navigate('/dashboard')
+      
     } catch (err: any) {
       if (axios.isAxiosError(err)) {
         setError(err.response?.data?.message || "Login failed");

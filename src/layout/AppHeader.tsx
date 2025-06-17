@@ -18,7 +18,6 @@ const AppHeader: React.FC = () => {
       toggleMobileSidebar();
     }
   };
-
   const toggleApplicationMenu = () => {
     setApplicationMenuOpen(!isApplicationMenuOpen);
   };

@@ -10,7 +10,9 @@ import {
 import Button from "../ui/button/Button";
 import { UserPlus, UserMinus } from "lucide-react";
 import UsersModal from "../Modal/UsersModal";
+
 type User = {
+  User_ID: number;
   UID: string;
   FirstName: string;
   LastName: string;
@@ -73,7 +75,7 @@ const UserTable: React.FC = () => {
   if (error) return <div className="text-red-500">{error}</div>;
 
   return (
-    <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
+    <div className="relative overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
       <div className="max-w-full overflow-x-auto p-4">
         <Table>
           <TableHeader>
@@ -116,11 +118,11 @@ const UserTable: React.FC = () => {
                     </span>
                   </div>
                 </TableCell>
-                <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">{user.UID}</TableCell>
-                <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">{user.Email}</TableCell>
-                <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">{user.Phone}</TableCell>
-                <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">{user.Sex}</TableCell>
-                <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
+                <TableCell className="text-gray-500 text-sm dark:text-gray-400">{user.UID}</TableCell>
+                <TableCell className="text-gray-500 text-sm dark:text-gray-400">{user.Email}</TableCell>
+                <TableCell className="text-gray-500 text-sm dark:text-gray-400">{user.Phone}</TableCell>
+                <TableCell className="text-gray-500 text-sm dark:text-gray-400">{user.Sex}</TableCell>
+                <TableCell className="text-gray-500 text-sm dark:text-gray-400">
                   {user.Registration_Date &&
                     !isNaN(new Date(user.Registration_Date).getTime())
                     ? new Date(user.Registration_Date).toLocaleDateString()
@@ -139,12 +141,14 @@ const UserTable: React.FC = () => {
             ))}
           </TableBody>
         </Table>
-        <UsersModal
-          isOpen={isModalOpen}
-          onClose={closeModal}
-          user={selectedUser ?? undefined}
-        />
       </div>
+
+      {/* ✅ Modal placed outside scrollable div */}
+      <UsersModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        user={selectedUser ?? undefined}
+      />
     </div>
   );
 };
