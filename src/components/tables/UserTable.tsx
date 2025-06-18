@@ -67,7 +67,7 @@ const UserTable: React.FC = () => {
     fetchUsers();
   }, []);
 
-  if (userRole !== "1" && userRole !== "2") {
+  if (userRole == "3" ) {
     return <div>You are not authorized to view this page.</div>;
   }
 

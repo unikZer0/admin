@@ -7,9 +7,11 @@ import FormElements from "./pages/Forms/FormElements";
 import AppLayout from "./layout/AppLayout";
 import { ScrollToTop } from "./components/common/ScrollToTop";
 import Home from "./pages/Dashboard/Home";
-import Shop from "./pages/Shop/Shop";
+import Shipment from "./pages/Shipment/Shipment";
 import User from "./pages/User/User";
 import Product from "./pages/Product/Product";
+import Review from "./pages/Product/Review";
+import Wishlist from "./pages/Product/Wishlist";
 import ProtectedRoute from "../src/components/ProtectedRoute/ProtectedRoute";
 import AdminProtectRoute from "../src/components/ProtectedRoute/AdminProtectRoute";
 
@@ -32,9 +34,13 @@ export default function App() {
           <Route index path="/dashboard" element={<Home />} />
           <Route path="/profile" element={<UserProfiles />} />
           <Route path="/form-elements" element={<FormElements />} />
-          <Route path="/shops" element={<Shop />} />
+          <Route path="/shipment" element={<Shipment />} />
           <Route path="/users" element={<User />} />
-          <Route path="//products" element={<Product />} />
+
+          {/* product route */}
+          <Route path="/products" element={<Product />} />
+          <Route path="/reviews" element={<Review />} />
+          <Route path="/wishlists" element={<Wishlist />} />
           <Route path="/line-chart" element={<LineChart />} />
           <Route path="/bar-chart" element={<BarChart />} />
 

@@ -13,7 +13,6 @@ export interface Product {
   Status: string;
   Image: string;
   ProductType_ID: number;
-  Shop_ID: number | null;
   Added_By: string;
   productType?: string; // ชื่อประเภทสินค้า (จาก join backend)
 }
