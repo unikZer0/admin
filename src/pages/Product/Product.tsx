@@ -15,12 +15,6 @@ export default function Product() {
             <p className="font-medium text-xl dark:text-white">
               ຕາຕະລາງ ສິນຄ້າ
             </p>
-            <Button
-                                size="sm"
-                                variant="primary"
-                                endIcon={<UserPlus />}
-                              >
-                              </Button>
           </div>
             </div>
           <ProductTable />

@@ -15,6 +15,8 @@ import {
   Trash2,
   Package,
   Pencil,
+  Box,
+  PackagePlusIcon,
 } from "lucide-react";
 import Badge from "../ui/badge/Badge";
 import { useProductTable } from "../../hooks/useProductTable";
@@ -59,6 +61,7 @@ const ProductTable: React.FC = () => {
     openEditModal,
     closeEditModal,
     getStatusColor,
+    getStatusByStock,
     formatPrice,
     uniqueStatuses,
     totalValue,
@@ -158,6 +161,7 @@ const ProductTable: React.FC = () => {
         viewProduct={viewProduct}
         closeViewModal={closeViewModal}
         getStatusColor={getStatusColor}
+        getStatusByStock={getStatusByStock}
         formatPrice={formatPrice}
       />
 
@@ -184,7 +188,7 @@ const ProductTable: React.FC = () => {
           <Button
             size="sm"
             variant="primary"
-            endIcon={<UserPlus />}
+            endIcon={<PackagePlusIcon />}
             onClick={handleAddNewProduct}
             className="shadow-lg hover:shadow-xl transition-all duration-200 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
           >
@@ -269,6 +273,15 @@ const ProductTable: React.FC = () => {
                     isHeader
                     className="px-6 py-3.5 font-semibold text-gray-700 dark:text-gray-300 text-center"
                   >
+                    <div className="flex items-center justify-center gap-2">
+                      <Box className="w-4 h-4" />
+                      ສິນຄ້າຄົງຄັງ
+                    </div>
+                  </TableCell>
+                  <TableCell
+                    isHeader
+                    className="px-6 py-3.5 font-semibold text-gray-700 dark:text-gray-300 text-center"
+                  >
                     ສະຖານະ
                   </TableCell>
                   <TableCell
@@ -282,7 +295,7 @@ const ProductTable: React.FC = () => {
               <TableBody>
                 {filteredProducts.length === 0 ? (
                   <TableRow>
-                    <TableCell className="text-center py-16 px-6">
+                    <TableCell className="text-center py-16 px-6" colSpan={9}>
                       <div className="flex flex-col items-center justify-center">
                         <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700/60 rounded-full flex items-center justify-center mb-4">
                           <Search className="w-8 h-8 text-gray-500 dark:text-gray-400" />
@@ -323,12 +336,32 @@ const ProductTable: React.FC = () => {
                         {product.productType || "N/A"}
                       </TableCell>
                       <TableCell className="px-6 py-4 text-right font-semibold text-green-600 dark:text-green-400">
-                        ₭{formatPrice(product.Price)}
+                        {formatPrice(product.Price)}
                       </TableCell>
                       <TableCell className="px-6 py-4 text-center">
-                        <Badge color={getStatusColor(product.Status)}>
-                          {product.Status}
-                        </Badge>
+                        <div className="flex items-center justify-center">
+                          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                            (product.totalStock || 0) > 10 
+                              ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300'
+                              : (product.totalStock || 0) > 0
+                              ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300'
+                              : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300'
+                          }`}>
+                            <Box className="w-3 h-3 mr-1" />
+                            {product.totalStock || 0} ຄູ່
+                          </span>
+                        </div>
+                      </TableCell>
+                      <TableCell className="px-6 py-4 text-center">
+                        {(() => {
+                          const calculatedStatus = getStatusByStock(product.totalStock);
+                          console.log("ProductTable - Product:", product.Name, "totalStock:", product.totalStock, "Status:", calculatedStatus); // Debug log
+                          return (
+                            <Badge color={getStatusColor(calculatedStatus)}>
+                              {calculatedStatus}
+                            </Badge>
+                          );
+                        })()}
                       </TableCell>
                       <TableCell className="px-6 py-4 text-center">
                         <div className="flex items-center justify-center space-x-2">
@@ -380,7 +413,7 @@ const ProductTable: React.FC = () => {
         <div className="text-lg font-semibold text-gray-800 dark:text-gray-200">
           ມູນຄ່າສິນຄ້າທັງໝົດ:{" "}
           <span className="text-green-600 dark:text-green-400">
-            ₭{formatPrice(totalValue.toString())}
+            {formatPrice(totalValue)}
           </span>
         </div>
       </div>
