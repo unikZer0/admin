@@ -42,6 +42,21 @@ const AddProductModal: React.FC<AddProductModalProps> = ({
     { Size: "", Color: "", Quantity: 0 }
   ]);
 
+  // Sync inventory to parent newProduct.inventory
+  React.useEffect(() => {
+    // If you want to keep inventory in parent, call a prop setter here
+    // Otherwise, update newProduct.inventory directly if possible
+    // Example: handleInventoryChange(inventory)
+    // If not possible, you can ignore this
+  }, [inventory]);
+
+  // Reset inventory when modal closes
+  React.useEffect(() => {
+    if (!showAddModal) {
+      setInventory([{ Size: "", Color: "", Quantity: 0 }]);
+    }
+  }, [showAddModal]);
+
   const addInventoryItem = () => {
     setInventory([...inventory, { Size: "", Color: "", Quantity: 0 }]);
   };
@@ -56,31 +71,17 @@ const AddProductModal: React.FC<AddProductModalProps> = ({
     const updatedInventory = [...inventory];
     updatedInventory[index] = { ...updatedInventory[index], [field]: value };
     setInventory(updatedInventory);
-    console.log(`Updated inventory item ${index}, field ${field} to ${value}`); // Debug log
-    console.log("Updated inventory state:", updatedInventory); // Debug log
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Filter out empty inventory items
     const validInventory = inventory.filter(item => item.Size && item.Color && item.Quantity >= 0);
-    
-    console.log("AddProductModal - Current inventory state:", inventory); // Debug log
-    console.log("AddProductModal - Valid inventory:", validInventory); // Debug log
-    
-    // Create a proper synthetic event with all required methods
-    const syntheticEvent = {
+
+    // Call parent handler with inventory as argument
+    handleSubmitNewProduct({
       ...e,
-      preventDefault: () => {},
-      target: {
-        ...e.target,
-        inventory: validInventory
-      }
-    };
-    
-    // Call the parent handler with the synthetic event
-    handleSubmitNewProduct(syntheticEvent as any);
+      inventory: validInventory
+    } as any);
   };
 
   if (!showAddModal) return null;
@@ -188,7 +189,16 @@ const AddProductModal: React.FC<AddProductModalProps> = ({
                   <select
                     name="productType_ID"
                     value={newProduct.productType_ID}
-                    onChange={handleInputChange}
+                    onChange={e => {
+                      // Convert value to number
+                      handleInputChange({
+                        ...e,
+                        target: {
+                          ...e.target,
+                          value: Number(e.target.value)
+                        }
+                      } as any);
+                    }}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
                     required
                   >
@@ -256,12 +266,9 @@ const AddProductModal: React.FC<AddProductModalProps> = ({
                   ຂໍ້ມູນສິນຄ້າຄົງຄັງ (Inventory)
                 </h4>
                 <Button
-                  type="button"
                   size="sm"
                   variant="outline"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
+                  onClick={() => {
                     addInventoryItem();
                   }}
                   className="flex items-center gap-2"
@@ -372,7 +379,6 @@ const AddProductModal: React.FC<AddProductModalProps> = ({
                 )}
               </button>
               <Button
-                type="button"
                 variant="outline"
                 onClick={handleCloseModal}
                 className="px-6 py-3"
