@@ -7,7 +7,7 @@ import {
   ChevronDownIcon,
   GridIcon,
   HorizontaLDots,
-  ListIcon,
+  // ListIcon,
   PieChartIcon,
 } from "../icons";
 import { useSidebar } from "../context/SidebarContext";
@@ -37,8 +37,8 @@ const navItems: NavItem[] = [
     name: "Products",
     subItems: [
       { name: "products",path: "/products", pro: false },
-      { name: "reviews",path: "/reviews", pro: false },
-      { name: "wishlists",path: "/wishlists", pro: false },
+      // { name: "reviews",path: "/reviews", pro: false },
+      // { name: "wishlists",path: "/wishlists", pro: false },
     ],
     
   },
@@ -50,11 +50,11 @@ const navItems: NavItem[] = [
     ],
     
   },
-  {
-    name: "Forms",
-    icon: <ListIcon />,
-    subItems: [{ name: "Form Elements", path: "/form-elements", pro: false }],
-  },
+  // {
+  //   name: "Forms",
+  //   icon: <ListIcon />,
+  //   subItems: [{ name: "Form Elements", path: "/form-elements", pro: false }],
+  // },
 ];
 
 const othersItems: NavItem[] = [
@@ -326,7 +326,7 @@ const AppSidebar: React.FC = () => {
               </h2>
               {renderMenuItems(navItems, "main")}
             </div>
-            <div className="">
+            {/* <div className="">
               <h2
                 className={`mb-4 text-xs uppercase flex leading-[20px] text-gray-400 ${
                   !isExpanded && !isHovered
@@ -341,7 +341,7 @@ const AppSidebar: React.FC = () => {
                 )}
               </h2>
               {renderMenuItems(othersItems, "others")}
-            </div>
+            </div> */}
           </div>
         </nav>
         {isExpanded || isHovered || isMobileOpen }

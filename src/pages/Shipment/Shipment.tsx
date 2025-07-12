@@ -18,6 +18,8 @@ interface Shipment {
   Village: string;
   District: string;
   Province: string;
+  Payment_Method?: string;
+  Payment_Status?: string;
 }
 
 interface ShipmentStats {
@@ -161,6 +163,54 @@ const Shipment: React.FC = () => {
         </svg>
       );
       default: return null;
+    }
+  };
+
+  const getPaymentMethodText = (method?: string) => {
+    switch (method?.toLowerCase()) {
+      case 'card':
+        return 'การชำระเงิน (Card)';
+      case 'on delivery':
+        return 'จ่ายปลายทาง (COD)';
+      default:
+        return method || 'ไม่ระบุ';
+    }
+  };
+
+  const getPaymentMethodColor = (method?: string) => {
+    switch (method?.toLowerCase()) {
+      case 'card':
+        return 'bg-green-100 text-green-800';
+      case 'on delivery':
+        return 'bg-orange-100 text-orange-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
+    }
+  };
+
+  const getPaymentStatusText = (status?: string) => {
+    switch (status?.toLowerCase()) {
+      case 'paid':
+        return 'จ่ายแล้ว';
+      case 'pending':
+        return 'รอจ่าย';
+      case 'failed':
+        return 'จ่ายไม่สำเร็จ';
+      default:
+        return status || 'ไม่ระบุ';
+    }
+  };
+
+  const getPaymentStatusColor = (status?: string) => {
+    switch (status?.toLowerCase()) {
+      case 'paid':
+        return 'bg-green-100 text-green-800';
+      case 'pending':
+        return 'bg-yellow-100 text-yellow-800';
+      case 'failed':
+        return 'bg-red-100 text-red-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
     }
   };
 
@@ -321,6 +371,15 @@ const Shipment: React.FC = () => {
                 <div>
                   <h3 className="text-white font-semibold text-lg">#{shipment.Tracking_Number}</h3>
                   <p className="text-blue-100 text-sm">Order: {shipment.OID}</p>
+                  {/* Payment Information */}
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold ${getPaymentMethodColor(shipment.Payment_Method)}`}>
+                      {getPaymentMethodText(shipment.Payment_Method)}
+                    </span>
+                    <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold ${getPaymentStatusColor(shipment.Payment_Status)}`}>
+                      {getPaymentStatusText(shipment.Payment_Status)}
+                    </span>
+                  </div>
                 </div>
                 <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(shipment.Ship_Status)}`}>
                   {getStatusIcon(shipment.Ship_Status)}
@@ -471,7 +530,14 @@ const Shipment: React.FC = () => {
             <div className="px-6 py-4">
               <div className="flex justify-between items-center">
                 <div className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}`}>
-                  วันที่: {new Date(shipment.Ship_Date).toLocaleDateString('th-TH')}
+                  <div>วันที่: {new Date(shipment.Ship_Date).toLocaleDateString('th-TH')}</div>
+                  {shipment.Payment_Method === 'on delivery' && (
+                    <div className="mt-1">
+                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold bg-orange-100 text-orange-800">
+                        💰 เก็บเงินปลายทาง (COD)
+                      </span>
+                    </div>
+                  )}
                 </div>
                 <button
                   onClick={() => {
@@ -538,6 +604,18 @@ const Shipment: React.FC = () => {
                     <span className="font-medium">ลูกค้า:</span> {selectedShipment.FirstName || ''} {selectedShipment.LastName || ''}
                   </p>
                   <p className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+                    <span className="font-medium">วิธีการจ่าย:</span>
+                    <span className={`inline-flex items-center ml-2 px-2 py-1 text-xs font-semibold rounded-full ${getPaymentMethodColor(selectedShipment.Payment_Method)}`}>
+                      {getPaymentMethodText(selectedShipment.Payment_Method)}
+                    </span>
+                  </p>
+                  <p className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+                    <span className="font-medium">สถานะการจ่าย:</span>
+                    <span className={`inline-flex items-center ml-2 px-2 py-1 text-xs font-semibold rounded-full ${getPaymentStatusColor(selectedShipment.Payment_Status)}`}>
+                      {getPaymentStatusText(selectedShipment.Payment_Status)}
+                    </span>
+                  </p>
+                  <p className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
                     <span className="font-medium">สถานะปัจจุบัน:</span>
                     <span className={`inline-flex items-center ml-2 px-3 py-1 text-xs font-semibold rounded-full ${getStatusColor(selectedShipment.Ship_Status)}`}>
                       {getStatusIcon(selectedShipment.Ship_Status)}
@@ -569,6 +647,27 @@ const Shipment: React.FC = () => {
                 </div>
               ) : (
                 <div className="space-y-3">
+                  {/* COD Payment Notice */}
+                  {selectedShipment.Payment_Method === 'on delivery' && (
+                    <div className={`p-4 rounded-lg border-l-4 border-orange-500 ${theme === 'dark' ? 'bg-orange-900/20' : 'bg-orange-50'}`}>
+                      <div className="flex items-center">
+                        <div className="flex-shrink-0">
+                          <svg className="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                          </svg>
+                        </div>
+                        <div className="ml-3">
+                          <h3 className={`text-sm font-medium ${theme === 'dark' ? 'text-orange-200' : 'text-orange-800'}`}>
+                            💰 เก็บเงินปลายทาง (COD)
+                          </h3>
+                          <div className={`mt-1 text-sm ${theme === 'dark' ? 'text-orange-300' : 'text-orange-700'}`}>
+                            <p>อย่าลืมเก็บเงิน {selectedShipment.Total_Amount?.toLocaleString()} K จากการจัดส่งนี้</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
                   {/* Show only available status options based on current status */}
                   {selectedShipment.Ship_Status === 'preparing' && (
                     <>

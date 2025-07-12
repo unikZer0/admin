@@ -3,7 +3,7 @@ import SignIn from "./pages/AuthPages/SignIn";
 import UserProfiles from "./pages/UserProfiles";
 import LineChart from "./pages/Charts/LineChart";
 import BarChart from "./pages/Charts/BarChart";
-import FormElements from "./pages/Forms/FormElements";
+// import FormElements from "./pages/Forms/FormElements";
 import AppLayout from "./layout/AppLayout";
 import { ScrollToTop } from "./components/common/ScrollToTop";
 import Home from "./pages/Dashboard/Home";
@@ -13,7 +13,7 @@ import Product from "./pages/Product/Product";
 import Review from "./pages/Product/Review";
 import Wishlist from "./pages/Product/Wishlist";
 import ProtectedRoute from "../src/components/ProtectedRoute/ProtectedRoute";
-import AdminProtectRoute from "../src/components/ProtectedRoute/AdminProtectRoute";
+// import AdminProtectRoute from "../src/components/ProtectedRoute/AdminProtectRoute";
 
 export default function App() {
   return (
@@ -33,7 +33,7 @@ export default function App() {
         >
           <Route index path="/dashboard" element={<Home />} />
           <Route path="/profile" element={<UserProfiles />} />
-          <Route path="/form-elements" element={<FormElements />} />
+          {/* <Route path="/form-elements" element={<FormElements />} /> */}
           <Route path="/shipment" element={<Shipment />} />
           <Route path="/users" element={<User />} />
 
