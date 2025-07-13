@@ -43,6 +43,19 @@ const UserTable: React.FC = () => {
     setSelectedUser(null);
   };
 
+  const handleDeleteClick = async (userId: number) => {
+    try {
+      await axios.delete(`http://localhost:3000/api/admin/update/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      setUsers((prev) => prev.filter((u) => u.User_ID !== userId));
+    } catch (err) {
+      console.error("Error deleting user", err);
+    }
+  };
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -143,7 +156,6 @@ const UserTable: React.FC = () => {
         </Table>
       </div>
 
-      {/* ✅ Modal placed outside scrollable div */}
       <UsersModal
         isOpen={isModalOpen}
         onClose={closeModal}

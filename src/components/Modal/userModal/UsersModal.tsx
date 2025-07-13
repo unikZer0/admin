@@ -1,5 +1,4 @@
-import React,{ useState, useEffect } from "react";
-
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 interface ModalProps {
@@ -15,6 +14,7 @@ interface ModalProps {
     Role_id: number;
     Sex: string;
     Image?: string;
+    Registration_Date: string;
   };
 }
 
@@ -50,27 +50,27 @@ const UsersModal: React.FC<ModalProps> = ({ isOpen, onClose, user }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const data = await axios.post(`http://localhost:3000/api/admin/update/${user.User_ID}`, formData, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      console.log(data);
-      
-      setTimeout(() => {
-  location.reload();
-},0);
-
+      await axios.post(
+        `http://localhost:3000/api/admin/update/${user.User_ID}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       onClose();
+      setTimeout(() => {
+        location.reload();
+      }, 0);
     } catch (err) {
-      console.error("Update failed:", err);
       alert("Failed to update user");
     }
   };
 
   return (
     <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center" onClick={onClose}>
-      <div className="bg-white p-8 rounded w-96 text-center"  onClick={(e) => e.stopPropagation()}>
+      <div className="bg-white p-8 rounded w-96 text-center" onClick={(e) => e.stopPropagation()}>
         <h2 className="text-xl font-bold mb-4">Edit User</h2>
         <form onSubmit={handleSubmit} className="space-y-3">
           <input
@@ -105,8 +105,7 @@ const UsersModal: React.FC<ModalProps> = ({ isOpen, onClose, user }) => {
             placeholder="Phone"
             className="w-full border p-2 rounded"
           />
-          {user?.Role_id === 1 ||(
-            <select
+          <select
             name="Role_id"
             value={formData.Role_id}
             onChange={handleChange}
@@ -116,7 +115,6 @@ const UsersModal: React.FC<ModalProps> = ({ isOpen, onClose, user }) => {
             <option value={2}>Manager</option>
             <option value={3}>Customer</option>
           </select>
-          )}
           <select
             name="Sex"
             value={formData.Sex}
@@ -126,7 +124,6 @@ const UsersModal: React.FC<ModalProps> = ({ isOpen, onClose, user }) => {
             <option value="Male">Male</option>
             <option value="Female">Female</option>
           </select>
-
           <div className="flex justify-between mt-4">
             <button
               type="button"

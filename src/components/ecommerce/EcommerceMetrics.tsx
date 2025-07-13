@@ -44,7 +44,6 @@ export default function EcommerceMetrics() {
         );
 
         const { orderdata, customerdata } = res.data;
-        console.log(orderdata, customerdata);
         
         setKpis({ orderdata, customerdata });
       } catch (error) {

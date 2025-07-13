@@ -19,7 +19,6 @@ export default function StatisticsChart() {
       })
       .then((res) => {
         const { months = [], sales = [], revenueData = [] } = res.data;
-        console.log(res);
         
         setCategories(months);
         setSalesData(sales.length === 12 ? sales : Array(12).fill(0));
@@ -92,7 +91,6 @@ export default function StatisticsChart() {
       data: revenueData,
     },
   ];
-console.log(series);
 
   if (loading) {
     return (

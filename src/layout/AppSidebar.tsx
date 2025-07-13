@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router";
-import {User,Package,Truck} from 'lucide-react'
+import {User,Package,Truck,Activity} from 'lucide-react'
 
 // Assume these icons are imported from an icon library
 import {
@@ -49,6 +49,13 @@ const navItems: NavItem[] = [
       { name: "Shipments",path: "/shipment", pro: false },
     ],
     
+  },
+  {
+    icon: <Activity />,
+    name: "Activities",
+    subItems: [
+      { name: "Activity Log", path: "/activities", pro: false },
+    ],
   },
   {
     name: "Forms",

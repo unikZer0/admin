@@ -12,6 +12,7 @@ import User from "./pages/User/User";
 import Product from "./pages/Product/Product";
 import Review from "./pages/Product/Review";
 import Wishlist from "./pages/Product/Wishlist";
+import Activities from "./pages/Activities";
 import ProtectedRoute from "../src/components/ProtectedRoute/ProtectedRoute";
 import AdminProtectRoute from "../src/components/ProtectedRoute/AdminProtectRoute";
 
@@ -36,6 +37,7 @@ export default function App() {
           <Route path="/form-elements" element={<FormElements />} />
           <Route path="/shipment" element={<Shipment />} />
           <Route path="/users" element={<User />} />
+          <Route path="/activities" element={<Activities />} />
 
           {/* product route */}
           <Route path="/products" element={<Product />} />
