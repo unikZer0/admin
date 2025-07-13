@@ -35,13 +35,22 @@ const NotificationDropdown: React.FC = () => {
     try {
       const res = await getAllNotifications();
       console.log("Notifications API response:", res.data);
-      setNotifications(
-        Array.isArray(res.data)
-          ? res.data
-          : Array.isArray(res.data.data)
+      const raw = Array.isArray(res.data)
+        ? res.data
+        : Array.isArray(res.data.data)
           ? res.data.data
-          : []
-      );
+          : [];
+
+      const mapped = raw.map((n: any) => ({
+        id: n.Notification_ID ?? n.id,
+        title: n.Title ?? n.title ?? "",
+        message: n.Message ?? n.message ?? "",
+        type: n.Type ?? n.type ?? "",
+        isRead: n.Is_Read ?? n.isRead ?? false,
+        createdAt: n.Created_At ?? n.createdAt ?? "",
+      }));
+
+      setNotifications(mapped);
       setError(null);
     } catch (err: any) {
       setError("Failed to load notifications");

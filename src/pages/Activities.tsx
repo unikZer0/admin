@@ -9,6 +9,16 @@ import {
 } from "../components/ui/table";
 import Badge from "../components/ui/badge/Badge";
 import { Link } from "react-router";
+import {
+  LogIn,
+  Trash2,
+  Pencil,
+  Plus,
+  Key,
+  Bell,
+  FileText,
+  BarChart2 // Add this for 'Total Activities'
+} from "lucide-react";
 
 // Define the TypeScript interface for the activity rows
 interface Activity {
@@ -98,13 +108,13 @@ export default function Activities() {
   };
 
   const getActivityIcon = (activityType: string) => {
-    if (activityType.includes("LOGIN")) return "🔐";
-    if (activityType.includes("DELETE")) return "🗑️";
-    if (activityType.includes("UPDATE")) return "✏️";
-    if (activityType.includes("CREATE")) return "➕";
-    if (activityType.includes("PASSWORD")) return "🔑";
-    if (activityType.includes("NOTIFICATION")) return "🔔";
-    return "📝";
+    if (activityType.includes("LOGIN")) return <LogIn className="w-5 h-5 text-blue-500" />;
+    if (activityType.includes("DELETE")) return <Trash2 className="w-5 h-5 text-red-500" />;
+    if (activityType.includes("UPDATE")) return <Pencil className="w-5 h-5 text-yellow-500" />;
+    if (activityType.includes("CREATE")) return <Plus className="w-5 h-5 text-green-500" />;
+    if (activityType.includes("PASSWORD")) return <Key className="w-5 h-5 text-yellow-700" />;
+    if (activityType.includes("NOTIFICATION")) return <Bell className="w-5 h-5 text-indigo-500" />;
+    return <FileText className="w-5 h-5 text-gray-400" />;
   };
 
   return (
@@ -196,7 +206,7 @@ export default function Activities() {
         <div className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-800">
           <div className="flex items-center">
             <div className="rounded-lg bg-blue-100 p-2 dark:bg-blue-900">
-              <span className="text-2xl">📊</span>
+              <BarChart2 className="w-6 h-6 text-blue-600 dark:text-blue-300" />
             </div>
             <div className="ml-3">
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Activities</p>
@@ -207,7 +217,7 @@ export default function Activities() {
         <div className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-800">
           <div className="flex items-center">
             <div className="rounded-lg bg-green-100 p-2 dark:bg-green-900">
-              <span className="text-2xl">🔐</span>
+              <LogIn className="w-6 h-6 text-green-600 dark:text-green-300" />
             </div>
             <div className="ml-3">
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Logins</p>
@@ -220,7 +230,7 @@ export default function Activities() {
         <div className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-800">
           <div className="flex items-center">
             <div className="rounded-lg bg-yellow-100 p-2 dark:bg-yellow-900">
-              <span className="text-2xl">✏️</span>
+              <Pencil className="w-6 h-6 text-yellow-600 dark:text-yellow-300" />
             </div>
             <div className="ml-3">
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Updates</p>
@@ -233,7 +243,7 @@ export default function Activities() {
         <div className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-800">
           <div className="flex items-center">
             <div className="rounded-lg bg-red-100 p-2 dark:bg-red-900">
-              <span className="text-2xl">🗑️</span>
+              <Trash2 className="w-6 h-6 text-red-600 dark:text-red-300" />
             </div>
             <div className="ml-3">
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Deletions</p>

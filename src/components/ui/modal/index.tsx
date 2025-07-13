@@ -14,7 +14,7 @@ export const Modal: React.FC<ModalProps> = ({
   onClose,
   children,
   className,
-  showCloseButton = true, // Default to true for backwards compatibility
+  showCloseButton = true, 
   isFullscreen = false,
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
@@ -49,9 +49,10 @@ export const Modal: React.FC<ModalProps> = ({
 
   if (!isOpen) return null;
 
+  // Add fade-in animation and constrain width
   const contentClasses = isFullscreen
     ? "w-full h-full"
-    : "relative w-full rounded-3xl bg-white  dark:bg-gray-900";
+    : "relative w-full max-w-lg mx-auto rounded-3xl bg-white dark:bg-gray-900 shadow-2xl p-6 animate-fadeIn";
 
   return (
     <div className="fixed inset-0 flex items-center justify-center overflow-y-auto modal z-99999">
@@ -63,7 +64,7 @@ export const Modal: React.FC<ModalProps> = ({
       )}
       <div
         ref={modalRef}
-        className={`${contentClasses}  ${className}`}
+        className={`${contentClasses} ${className}`}
         onClick={(e) => e.stopPropagation()}
       >
         {showCloseButton && (
@@ -89,6 +90,16 @@ export const Modal: React.FC<ModalProps> = ({
         )}
         <div>{children}</div>
       </div>
+      {/* Fade-in animation keyframes (add to global CSS if not present) */}
+      <style>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: scale(0.97); }
+          to { opacity: 1; transform: scale(1); }
+        }
+        .animate-fadeIn {
+          animation: fadeIn 0.18s cubic-bezier(.4,0,.2,1);
+        }
+      `}</style>
     </div>
   );
 };

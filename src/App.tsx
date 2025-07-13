@@ -13,6 +13,7 @@ import Product from "./pages/Product/Product";
 import Review from "./pages/Product/Review";
 import Wishlist from "./pages/Product/Wishlist";
 import Activities from "./pages/Activities";
+import Notifications from "./pages/Notifications";
 import ProtectedRoute from "../src/components/ProtectedRoute/ProtectedRoute";
 // import AdminProtectRoute from "../src/components/ProtectedRoute/AdminProtectRoute";
 
@@ -38,6 +39,7 @@ export default function App() {
           <Route path="/shipment" element={<Shipment />} />
           <Route path="/users" element={<User />} />
           <Route path="/activities" element={<Activities />} />
+          <Route path="/notifications" element={<Notifications />} />
 
           {/* product route */}
           <Route path="/products" element={<Product />} />
