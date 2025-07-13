@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { X } from "lucide-react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 interface ModalProps {
   isOpen: boolean;
@@ -64,22 +66,37 @@ const UsersModal: React.FC<ModalProps> = ({ isOpen, onClose, user }) => {
         location.reload();
       }, 0);
     } catch (err) {
-      alert("Failed to update user");
+      Swal.fire(
+        'Error!',
+        'Failed to update user',
+        'error'
+      );
     }
   };
 
   return (
-    <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center" onClick={onClose}>
-      <div className="bg-white p-8 rounded w-96 text-center" onClick={(e) => e.stopPropagation()}>
-        <h2 className="text-xl font-bold mb-4">Edit User</h2>
-        <form onSubmit={handleSubmit} className="space-y-3">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+      <div
+        className="relative w-full max-w-md mx-4 rounded-2xl bg-white dark:bg-gray-900 shadow-2xl p-8 animate-fadeIn"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+          aria-label="Close"
+        >
+          <X className="w-6 h-6" />
+        </button>
+        <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white text-center">Edit User</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="text"
             name="FirstName"
             value={formData.FirstName}
             onChange={handleChange}
             placeholder="First Name"
-            className="w-full border p-2 rounded"
+            className="w-full border border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 focus:outline-none dark:bg-gray-800 dark:text-white"
           />
           <input
             type="text"
@@ -87,7 +104,7 @@ const UsersModal: React.FC<ModalProps> = ({ isOpen, onClose, user }) => {
             value={formData.LastName}
             onChange={handleChange}
             placeholder="Last Name"
-            className="w-full border p-2 rounded"
+            className="w-full border border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 focus:outline-none dark:bg-gray-800 dark:text-white"
           />
           <input
             type="email"
@@ -95,7 +112,7 @@ const UsersModal: React.FC<ModalProps> = ({ isOpen, onClose, user }) => {
             value={formData.Email}
             onChange={handleChange}
             placeholder="Email"
-            className="w-full border p-2 rounded"
+            className="w-full border border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 focus:outline-none dark:bg-gray-800 dark:text-white"
           />
           <input
             type="text"
@@ -103,13 +120,13 @@ const UsersModal: React.FC<ModalProps> = ({ isOpen, onClose, user }) => {
             value={formData.Phone}
             onChange={handleChange}
             placeholder="Phone"
-            className="w-full border p-2 rounded"
+            className="w-full border border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 focus:outline-none dark:bg-gray-800 dark:text-white"
           />
           <select
             name="Role_id"
             value={formData.Role_id}
             onChange={handleChange}
-            className="w-full border p-2 rounded"
+            className="w-full border border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 focus:outline-none dark:bg-gray-800 dark:text-white"
           >
             <option value={1}>Admin</option>
             <option value={2}>Manager</option>
@@ -119,34 +136,37 @@ const UsersModal: React.FC<ModalProps> = ({ isOpen, onClose, user }) => {
             name="Sex"
             value={formData.Sex}
             onChange={handleChange}
-            className="w-full border p-2 rounded"
+            className="w-full border border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 focus:outline-none dark:bg-gray-800 dark:text-white"
           >
             <option value="Male">Male</option>
             <option value="Female">Female</option>
           </select>
-          <div className="flex justify-between mt-4">
+          <div className="flex justify-between gap-2 pt-4">
             <button
               type="button"
               onClick={onClose}
-              className="bg-gray-400 text-white px-4 py-2 rounded"
+              className="flex-1 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-700"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="bg-blue-600 text-white px-4 py-2 rounded"
+              className="flex-1 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               Save Changes
             </button>
           </div>
         </form>
-        <button
-          className="mt-4 bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded"
-          onClick={onClose}
-        >
-          Close Modal
-        </button>
       </div>
+      <style>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: scale(0.97);}
+          to { opacity: 1; transform: scale(1);}
+        }
+        .animate-fadeIn {
+          animation: fadeIn 0.18s cubic-bezier(.4,0,.2,1);
+        }
+      `}</style>
     </div>
   );
 };
