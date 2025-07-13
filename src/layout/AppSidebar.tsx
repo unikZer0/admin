@@ -7,7 +7,7 @@ import {
   ChevronDownIcon,
   GridIcon,
   HorizontaLDots,
-  ListIcon,
+  // ListIcon,
   PieChartIcon,
 } from "../icons";
 import { useSidebar } from "../context/SidebarContext";
@@ -50,11 +50,11 @@ const navItems: NavItem[] = [
     ],
     
   },
-  {
-    name: "Forms",
-    icon: <ListIcon />,
-    subItems: [{ name: "Form Elements", path: "/form-elements", pro: false }],
-  },
+  // {
+  //   name: "Forms",
+  //   icon: <ListIcon />,
+  //   subItems: [{ name: "Form Elements", path: "/form-elements", pro: false }],
+  // },
 ];
 
 const othersItems: NavItem[] = [
