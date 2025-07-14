@@ -77,11 +77,18 @@ const AddProductModal: React.FC<AddProductModalProps> = ({
     e.preventDefault();
     const validInventory = inventory.filter(item => item.Size && item.Color && item.Quantity >= 0);
 
-    // Call parent handler with inventory as argument
-    handleSubmitNewProduct({
+    // Create a proper event object with inventory data
+    const syntheticEvent = {
       ...e,
-      inventory: validInventory
-    } as any);
+      target: {
+        ...e.target,
+        inventory: validInventory
+      },
+      preventDefault: () => {}
+    };
+
+    // Call parent handler with proper event object
+    handleSubmitNewProduct(syntheticEvent as React.FormEvent);
   };
 
   if (!showAddModal) return null;
@@ -188,17 +195,8 @@ const AddProductModal: React.FC<AddProductModalProps> = ({
                   </label>
                   <select
                     name="productType_ID"
-                    value={newProduct.productType_ID}
-                    onChange={e => {
-                      // Convert value to number
-                      handleInputChange({
-                        ...e,
-                        target: {
-                          ...e.target,
-                          value: Number(e.target.value)
-                        }
-                      } as any);
-                    }}
+                    value={newProduct.productType_ID || ''}
+                    onChange={handleInputChange}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
                     required
                   >

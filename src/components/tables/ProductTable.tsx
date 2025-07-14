@@ -190,6 +190,7 @@ const ProductTable: React.FC = () => {
             variant="primary"
             endIcon={<PackagePlusIcon />}
             onClick={handleAddNewProduct}
+            data-testid="add-product-button"
             className="shadow-lg hover:shadow-xl transition-all duration-200 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
           >
             ເພີ່ມສິນຄ້າໃໝ່
