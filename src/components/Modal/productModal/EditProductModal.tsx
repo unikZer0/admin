@@ -77,10 +77,11 @@ const EditProductModal: React.FC<EditProductModalProps> = ({
     if (!editProduct) return;
     
     const { name, value } = e.target;
+    console.log(`EditProductModal handleInputChange - ${name}:`, value, "Type:", typeof value); // Debug log
     setEditProduct({
       ...editProduct,
       [name]: name === 'Price' ? parseFloat(value) || 0 : 
-              name === 'productType_ID' ? parseInt(value) || 0 : value,
+              name === 'productType_ID' ? (value === '' ? undefined : parseInt(value) || 0) : value,
     });
   };
 
@@ -238,7 +239,7 @@ const EditProductModal: React.FC<EditProductModalProps> = ({
                   </label>
                   <select
                     name="productType_ID"
-                    value={editProduct.productType_ID}
+                    value={editProduct.productType_ID || ''}
                     onChange={handleInputChange}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
                     required

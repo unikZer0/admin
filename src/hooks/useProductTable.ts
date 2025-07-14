@@ -20,7 +20,7 @@ export interface Product {
   Description: string;
   Status: string;
   Image: string;
-  productType_ID: number;
+  productType_ID: number | undefined;
   Added_By: string;
   productType?: string; // ชื่อประเภทสินค้า (จาก join backend)
   totalStock?: number; // จำนวนสินค้าคงเหลือทั้งหมด
@@ -35,7 +35,7 @@ export interface NewProductData {
   Description: string;
   Status: string;
   Image: string;
-  productType_ID: number;
+  productType_ID: number | undefined;
   Added_By: string;
   inventory: InventoryItem[];
 }
@@ -107,7 +107,7 @@ export function useProductTable(options: UseProductTableOptions = {}) {
     Description: "",
     Status: "ມີຂາຍ",
     Image: "",
-    productType_ID: 0, 
+    productType_ID: undefined, 
     Added_By: getUserId() || "admin",
     inventory: [{ Size: "", Color: "", Quantity: 0 }]
   });
@@ -115,7 +115,9 @@ export function useProductTable(options: UseProductTableOptions = {}) {
   const userRole = getUserRole();
 
   const handleEditProduct = async (e: React.FormEvent & { target?: { inventory?: InventoryItem[] } }) => {
-    e.preventDefault();
+    if (e.preventDefault) {
+      e.preventDefault();
+    }
     if (!editProduct) return;
     
     // Validate
@@ -140,6 +142,11 @@ export function useProductTable(options: UseProductTableOptions = {}) {
     }
     if (price > 99999999.99) {
       setEditError("ລາຄາສູງສຸດທີ່ອະນຸຍາດ: 99,999,999.99 ກີບ");
+      return;
+    }
+    
+    if (!editProduct.productType_ID || editProduct.productType_ID === 0) {
+      setEditError("ກະລຸນາເລືອກປະເພດສິນຄ້າ");
       return;
     }
     
@@ -262,7 +269,7 @@ export function useProductTable(options: UseProductTableOptions = {}) {
       Description: "",
       Status: "ມີຂາຍ",
       Image: "",
-      productType_ID: 0,
+      productType_ID: undefined,
       Added_By: getUserId() || "admin",
       inventory: [{ Size: "", Color: "", Quantity: 0 }]
     });
@@ -270,14 +277,17 @@ export function useProductTable(options: UseProductTableOptions = {}) {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
+    console.log(`handleInputChange - ${name}:`, value, "Type:", typeof value); // Debug log
     setNewProduct((prev) => ({
       ...prev,
-      [name]: name === "productType_ID" ? Number(value) : value,
+      [name]: name === "productType_ID" ? (value === '' ? undefined : Number(value)) : value,
     }));
   };
 
   const handleSubmitNewProduct = async (e: React.FormEvent & { target?: { inventory?: InventoryItem[] } }) => {
-    e.preventDefault();
+    if (e.preventDefault) {
+      e.preventDefault();
+    }
     
     // Validate required fields
     if (!newProduct.Name.trim()) {
@@ -304,7 +314,7 @@ export function useProductTable(options: UseProductTableOptions = {}) {
       return;
     }
     
-    if (!newProduct.productType_ID) {
+    if (!newProduct.productType_ID || newProduct.productType_ID === 0) {
       alert("ກະລຸນາເລືອກປະເພດສິນຄ້າ");
       return;
     }
@@ -419,6 +429,7 @@ export function useProductTable(options: UseProductTableOptions = {}) {
       );
 
       if (response.data.data) {
+        console.log("Product types fetched:", response.data.data); // Debug log
         setProductTypes(response.data.data);
       }
     } catch (error) {
@@ -523,7 +534,7 @@ export function useProductTable(options: UseProductTableOptions = {}) {
         const productWithInventory = {
           ...product,
           ...response.data.data,
-          productType_ID: parseInt(response.data.data.productType_ID) || 0,
+          productType_ID: response.data.data.productType_ID ? parseInt(response.data.data.productType_ID) : undefined,
           inventory: response.data.data.inventory || []
         };
         console.log("Product data from API:", response.data.data); // Debug log
@@ -535,7 +546,7 @@ export function useProductTable(options: UseProductTableOptions = {}) {
         // ถ้าไม่มีข้อมูล inventory ให้ใช้ข้อมูลเดิม
         const productWithNumberType = {
           ...product,
-          productType_ID: parseInt(product.productType_ID) || 0
+          productType_ID: product.productType_ID ? parseInt(product.productType_ID.toString()) : undefined
         };
         console.log("Using original product data:", productWithNumberType); // Debug log
         console.log("Original ProductType_ID:", productWithNumberType.productType_ID); // Debug log

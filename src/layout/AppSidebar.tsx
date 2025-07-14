@@ -58,14 +58,14 @@ const navItems: NavItem[] = [
     ],
     
   },
-  {
-    icon: <Bell />,
-    name: "Notifications",
-    subItems: [
-      { name: "Manage Notifications",path: "/notifications", pro: false },
-    ],
+  // {
+  //   icon: <Bell />,
+  //   name: "Notifications",
+  //   subItems: [
+  //     { name: "Manage Notifications",path: "/notifications", pro: false },
+  //   ],
     
-  },
+  // },
   // {
   //   name: "Forms",
   //   icon: <ListIcon />,
