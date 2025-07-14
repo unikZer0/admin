@@ -295,15 +295,17 @@ const ProductTable: React.FC = () => {
               <TableBody>
                 {filteredProducts.length === 0 ? (
                   <TableRow>
-                    <TableCell className="text-center py-16 px-6" colSpan={9}>
-                      <div className="flex flex-col items-center justify-center">
-                        <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700/60 rounded-full flex items-center justify-center mb-4">
-                          <Search className="w-8 h-8 text-gray-500 dark:text-gray-400" />
+                    <TableCell className="text-center py-16 px-6">
+                      <td colSpan={9} className="text-center py-16 px-6">
+                        <div className="flex flex-col items-center justify-center">
+                          <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700/60 rounded-full flex items-center justify-center mb-4">
+                            <Search className="w-8 h-8 text-gray-500 dark:text-gray-400" />
+                          </div>
+                          <p className="text-gray-500 dark:text-gray-300 text-lg font-medium">
+                            ບໍ່ພົບສິນຄ້າທີ່ກົງກັບການຄົ້ນຫາຂອງທ່ານ.
+                          </p>
                         </div>
-                        <p className="text-gray-500 dark:text-gray-300 text-lg font-medium">
-                          ບໍ່ພົບສິນຄ້າທີ່ກົງກັບການຄົ້ນຫາຂອງທ່ານ.
-                        </p>
-                      </div>
+                      </td>
                     </TableCell>
                   </TableRow>
                 ) : (

@@ -188,14 +188,13 @@ const AddProductModal: React.FC<AddProductModalProps> = ({
                   </label>
                   <select
                     name="productType_ID"
-                    value={newProduct.productType_ID}
+                    value={newProduct.productType_ID || ""}
                     onChange={e => {
-                      // Convert value to number
                       handleInputChange({
                         ...e,
                         target: {
                           ...e.target,
-                          value: Number(e.target.value)
+                          value: e.target.value ? Number(e.target.value) : 0
                         }
                       } as any);
                     }}
