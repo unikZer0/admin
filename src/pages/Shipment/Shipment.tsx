@@ -98,7 +98,7 @@ const Shipment: React.FC = () => {
       setSelectedShipment(null);
       
       // Show success popup
-      setSuccessMessage(`อัปเดตสถานะเป็น "${getStatusText(status)}" สำเร็จ!`);
+      setSuccessMessage(`ອັບເດດສະຖານະເປັນ "${getStatusText(status)}" ສຳເລັດ!`);
       setShowSuccessPopup(true);
       
       // Auto hide popup after 3 seconds
@@ -109,7 +109,7 @@ const Shipment: React.FC = () => {
       console.error('Error updating shipment status:', error);
       
       // Show error message to user
-      const errorMessage = error.response?.data?.message || 'เกิดข้อผิดพลาดในการอัปเดตสถานะ';
+      const errorMessage = error.response?.data?.message || 'ເກີດຂໍ້ຜິດພາດໃນການອັບເດດສະຖານະ';
       setSuccessMessage(errorMessage);
       setShowSuccessPopup(true);
       
@@ -132,10 +132,10 @@ const Shipment: React.FC = () => {
 
   const getStatusText = (status: string) => {
     switch (status) {
-      case 'preparing': return 'กำลังเตรียม';
-      case 'shipped': return 'จัดส่งแล้ว';
-      case 'delivered': return 'จัดส่งสำเร็จ';
-      case 'cancelled': return 'ยกเลิก';
+      case 'preparing': return 'ກຳລັງເຕີມພ້ອມ';
+      case 'shipped': return 'ຈັດສົ່ງແລ້ວ';
+      case 'delivered': return 'ຈັດສົ່ງສຳເລັດ';
+      case 'cancelled': return 'ຍົກເລີກ';
       default: return status;
     }
   };
@@ -169,11 +169,11 @@ const Shipment: React.FC = () => {
   const getPaymentMethodText = (method?: string) => {
     switch (method?.toLowerCase()) {
       case 'card':
-        return 'การชำระเงิน (Card)';
+        return 'ການຊຳລະເງິນ (Card)';
       case 'on delivery':
-        return 'จ่ายปลายทาง (COD)';
+        return 'ຈ່າຍປາຍທາງ (COD)';
       default:
-        return method || 'ไม่ระบุ';
+        return method || 'ບໍ່ລະບຸ';
     }
   };
 
@@ -191,13 +191,13 @@ const Shipment: React.FC = () => {
   const getPaymentStatusText = (status?: string) => {
     switch (status?.toLowerCase()) {
       case 'paid':
-        return 'จ่ายแล้ว';
+        return 'ຈ່າຍແລ້ວ';
       case 'pending':
-        return 'รอจ่าย';
+        return 'ລໍຈ່າຍ';
       case 'failed':
-        return 'จ่ายไม่สำเร็จ';
+        return 'ຈ່າຍບໍ່ສຳເລັດ';
       default:
-        return status || 'ไม่ระบุ';
+        return status || 'ບໍ່ລະບຸ';
     }
   };
 
@@ -240,10 +240,10 @@ const Shipment: React.FC = () => {
     <div className="p-6">
       <div className="mb-8">
         <h1 className={`text-3xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-          ระบบจัดการการจัดส่งสินค้า
+          ລະບົບຈັດການການຈັດສົ່ງສິນຄ້າ
         </h1>
         <p className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>
-          ค้นหาและจัดการสถานะการจัดส่งสินค้าทั้งหมด
+          ຄົ້ນຫາແລະຈັດການສະຖານະການຈັດສົ່ງສິນຄ້າທັງໝົດ
         </p>
       </div>
 
@@ -257,7 +257,7 @@ const Shipment: React.FC = () => {
           </div>
           <input
             type="text"
-            placeholder="ค้นหาด้วยเลข Tracking Number, OID หรือชื่อลูกค้า..."
+            placeholder="ຄົ້ນຫາດ້ວຍເລກ Tracking Number, OID ຫຼືຊື່ລູກຄ້າ..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className={`block w-full pl-10 pr-3 py-4 border rounded-xl text-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
@@ -279,7 +279,7 @@ const Shipment: React.FC = () => {
               </svg>
             </div>
             <div className="ml-4">
-              <p className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>ทั้งหมด</p>
+              <p className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>ທັງໝົດ</p>
               <p className={`text-2xl font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>{stats.total}</p>
             </div>
           </div>
@@ -293,7 +293,7 @@ const Shipment: React.FC = () => {
               </svg>
             </div>
             <div className="ml-4">
-              <p className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>กำลังเตรียม</p>
+              <p className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>ກຳລັງເຕີມພ້ອມ</p>
               <p className={`text-2xl font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>{stats.preparing}</p>
             </div>
           </div>
@@ -307,7 +307,7 @@ const Shipment: React.FC = () => {
               </svg>
             </div>
             <div className="ml-4">
-              <p className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>จัดส่งแล้ว</p>
+              <p className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>ຈັດສົ່ງແລ້ວ</p>
               <p className={`text-2xl font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>{stats.shipped}</p>
             </div>
           </div>
@@ -321,7 +321,7 @@ const Shipment: React.FC = () => {
               </svg>
             </div>
             <div className="ml-4">
-              <p className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>จัดส่งสำเร็จ</p>
+              <p className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>ຈັດສົ່ງສຳເລັດ</p>
               <p className={`text-2xl font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>{stats.delivered}</p>
             </div>
           </div>
@@ -335,7 +335,7 @@ const Shipment: React.FC = () => {
               </svg>
             </div>
             <div className="ml-4">
-              <p className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>ยกเลิก</p>
+              <p className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>ຍົກເລີກ</p>
               <p className={`text-2xl font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>{stats.cancelled}</p>
             </div>
           </div>
@@ -353,11 +353,11 @@ const Shipment: React.FC = () => {
               : 'bg-white border-gray-300 text-gray-900'
           }`}
         >
-          <option value="all">สถานะทั้งหมด</option>
-          <option value="preparing">กำลังเตรียม</option>
-          <option value="shipped">จัดส่งแล้ว</option>
-          <option value="delivered">จัดส่งสำเร็จ</option>
-          <option value="cancelled">ยกเลิก</option>
+          <option value="all">ສະຖານະທັງໝົດ</option>
+          <option value="preparing">ກຳລັງເຕີມພ້ອມ</option>
+          <option value="shipped">ຈັດສົ່ງແລ້ວ</option>
+          <option value="delivered">ຈັດສົ່ງສຳເລັດ</option>
+          <option value="cancelled">ຍົກເລີກ</option>
         </select>
       </div>
 
@@ -370,7 +370,7 @@ const Shipment: React.FC = () => {
               <div className="flex justify-between items-center">
                 <div>
                   <h3 className="text-white font-semibold text-lg">#{shipment.Tracking_Number}</h3>
-                  <p className="text-blue-100 text-sm">Order: {shipment.OID}</p>
+                  <p className="text-blue-100 text-sm">ຄຳສັ່ງ: {shipment.OID}</p>
                   {/* Payment Information */}
                   <div className="mt-2 flex flex-wrap gap-2">
                     <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold ${getPaymentMethodColor(shipment.Payment_Method)}`}>
@@ -424,7 +424,7 @@ const Shipment: React.FC = () => {
 
             {/* Timeline */}
             <div className={`px-6 py-4 border-b ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}>
-              <h5 className={`text-sm font-medium mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>สถานะการจัดส่ง</h5>
+              <h5 className={`text-sm font-medium mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>ສະຖານະການຈັດສົ່ງ</h5>
               <div className="relative">
                 <div className="flex items-center justify-between">
                   {/* Step 1: Preparing */}
@@ -446,7 +446,7 @@ const Shipment: React.FC = () => {
                       shipment.Ship_Status === 'preparing' || shipment.Ship_Status === 'shipped' || shipment.Ship_Status === 'delivered'
                         ? 'text-green-600'
                         : 'text-gray-400'
-                    }`}>กำลังเตรียม</span>
+                    }`}>ກຳລັງເຕີມພ້ອມ</span>
                   </div>
 
                   {/* Line 1 */}
@@ -483,7 +483,7 @@ const Shipment: React.FC = () => {
                         : shipment.Ship_Status === 'preparing'
                         ? 'text-blue-600'
                         : 'text-gray-400'
-                    }`}>จัดส่งแล้ว</span>
+                    }`}>ຈັດສົ່ງແລ້ວ</span>
                   </div>
 
                   {/* Line 2 */}
@@ -520,7 +520,7 @@ const Shipment: React.FC = () => {
                         : shipment.Ship_Status === 'shipped'
                         ? 'text-blue-600'
                         : 'text-gray-400'
-                    }`}>จัดส่งสำเร็จ</span>
+                    }`}>ຈັດສົ່ງສຳເລັດ</span>
                   </div>
                 </div>
               </div>
@@ -530,11 +530,11 @@ const Shipment: React.FC = () => {
             <div className="px-6 py-4">
               <div className="flex justify-between items-center">
                 <div className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}`}>
-                  <div>วันที่: {new Date(shipment.Ship_Date).toLocaleDateString('th-TH')}</div>
+                  <div>ວັນທີ: {new Date(shipment.Ship_Date).toLocaleDateString('lo-LA')}</div>
                   {shipment.Payment_Method === 'on delivery' && (
                     <div className="mt-1">
                       <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold bg-orange-100 text-orange-800">
-                        💰 เก็บเงินปลายทาง (COD)
+                        💰 ເກັບເງິນປາຍທາງ (COD)
                       </span>
                     </div>
                   )}
@@ -551,7 +551,7 @@ const Shipment: React.FC = () => {
                       : 'bg-blue-600 hover:bg-blue-700 text-white'
                   }`}
                 >
-                  {shipment.Ship_Status === 'cancelled' ? 'ไม่สามารถอัปเดตได้' : 'อัปเดตสถานะ'}
+                  {shipment.Ship_Status === 'cancelled' ? 'ບໍ່ສາມາດອັບເດດໄດ້' : 'ອັບເດດສະຖານະ'}
                 </button>
               </div>
             </div>
@@ -564,9 +564,9 @@ const Shipment: React.FC = () => {
           <svg className={`mx-auto h-12 w-12 ${theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
           </svg>
-          <h3 className={`mt-2 text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>ไม่พบข้อมูล</h3>
+          <h3 className={`mt-2 text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>ບໍ່ພົບຂໍ້ມູນ</h3>
           <p className={`mt-1 text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}`}>
-            {searchQuery ? 'ลองค้นหาด้วยคำอื่น' : 'ไม่มีข้อมูลการจัดส่ง'}
+            {searchQuery ? 'ລອງຄົ້ນຫາດ້ວຍຄຳອື່ນ' : 'ບໍ່ມີຂໍ້ມູນການຈັດສົ່ງ'}
           </p>
         </div>
       )}
@@ -580,7 +580,7 @@ const Shipment: React.FC = () => {
             <div className="mt-3">
               <div className="flex items-center justify-between mb-6">
                 <h3 className={`text-xl font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                  อัปเดตสถานะการจัดส่ง
+                  ອັບເດດສະຖານະການຈັດສົ່ງ
                 </h3>
                 <button
                   onClick={() => {
@@ -598,25 +598,25 @@ const Shipment: React.FC = () => {
               <div className={`mb-6 p-4 rounded-lg ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-50'}`}>
                 <div className="space-y-2">
                   <p className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
-                    <span className="font-medium">เลขที่ติดตาม:</span> {selectedShipment.Tracking_Number}
+                    <span className="font-medium">ເລກທີຕິດຕາມ:</span> {selectedShipment.Tracking_Number}
                   </p>
                   <p className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
-                    <span className="font-medium">ลูกค้า:</span> {selectedShipment.FirstName || ''} {selectedShipment.LastName || ''}
+                    <span className="font-medium">ລູກຄ້າ:</span> {selectedShipment.FirstName || ''} {selectedShipment.LastName || ''}
                   </p>
                   <p className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
-                    <span className="font-medium">วิธีการจ่าย:</span>
+                    <span className="font-medium">ວິທີການຈ່າຍ:</span>
                     <span className={`inline-flex items-center ml-2 px-2 py-1 text-xs font-semibold rounded-full ${getPaymentMethodColor(selectedShipment.Payment_Method)}`}>
                       {getPaymentMethodText(selectedShipment.Payment_Method)}
                     </span>
                   </p>
                   <p className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
-                    <span className="font-medium">สถานะการจ่าย:</span>
+                    <span className="font-medium">ສະຖານະການຈ່າຍ:</span>
                     <span className={`inline-flex items-center ml-2 px-2 py-1 text-xs font-semibold rounded-full ${getPaymentStatusColor(selectedShipment.Payment_Status)}`}>
                       {getPaymentStatusText(selectedShipment.Payment_Status)}
                     </span>
                   </p>
                   <p className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
-                    <span className="font-medium">สถานะปัจจุบัน:</span>
+                    <span className="font-medium">ສະຖານະປັດຈຸບັນ:</span>
                     <span className={`inline-flex items-center ml-2 px-3 py-1 text-xs font-semibold rounded-full ${getStatusColor(selectedShipment.Ship_Status)}`}>
                       {getStatusIcon(selectedShipment.Ship_Status)}
                       <span className="ml-1">{getStatusText(selectedShipment.Ship_Status)}</span>
@@ -632,8 +632,8 @@ const Shipment: React.FC = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                     </svg>
                   </div>
-                  <h4 className={`text-lg font-semibold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>ไม่สามารถอัปเดตสถานะได้</h4>
-                  <p className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>การจัดส่งนี้ถูกยกเลิกแล้ว ไม่สามารถเปลี่ยนสถานะได้</p>
+                  <h4 className={`text-lg font-semibold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>ບໍ່ສາມາດອັບເດດສະຖານະໄດ້</h4>
+                  <p className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>ການຈັດສົ່ງນີ້ຖືກຍົກເລີກແລ້ວ ບໍ່ສາມາດປ່ຽນສະຖານະໄດ້</p>
                 </div>
               ) : selectedShipment.Ship_Status === 'delivered' ? (
                 <div className="text-center py-6">
@@ -642,8 +642,8 @@ const Shipment: React.FC = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
-                  <h4 className={`text-lg font-semibold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>จัดส่งสำเร็จแล้ว</h4>
-                  <p className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>การจัดส่งนี้เสร็จสิ้นแล้ว ไม่สามารถเปลี่ยนสถานะได้</p>
+                  <h4 className={`text-lg font-semibold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>ຈັດສົ່ງສຳເລັດແລ້ວ</h4>
+                  <p className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>ການຈັດສົ່ງນີ້ເສັດສິ້ນແລ້ວ ບໍ່ສາມາດປ່ຽນສະຖານະໄດ້</p>
                 </div>
               ) : (
                 <div className="space-y-3">
@@ -658,10 +658,10 @@ const Shipment: React.FC = () => {
                         </div>
                         <div className="ml-3">
                           <h3 className={`text-sm font-medium ${theme === 'dark' ? 'text-orange-200' : 'text-orange-800'}`}>
-                            💰 เก็บเงินปลายทาง (COD)
+                            💰 ເກັບເງິນປາຍທາງ (COD)
                           </h3>
                           <div className={`mt-1 text-sm ${theme === 'dark' ? 'text-orange-300' : 'text-orange-700'}`}>
-                            <p>อย่าลืมเก็บเงิน {selectedShipment.Total_Amount?.toLocaleString()} K จากการจัดส่งนี้</p>
+                            <p>ຢ່າລືມເກັບເງິນ {selectedShipment.Total_Amount?.toLocaleString()} K ຈາກການຈັດສົ່ງນີ້</p>
                           </div>
                         </div>
                       </div>
@@ -685,7 +685,7 @@ const Shipment: React.FC = () => {
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
                           </div>
-                          <span className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>จัดส่งแล้ว</span>
+                          <span className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>ຈັດສົ່ງແລ້ວ</span>
                         </div>
                         <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -706,7 +706,7 @@ const Shipment: React.FC = () => {
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                             </svg>
                           </div>
-                          <span className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>ยกเลิก</span>
+                          <span className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>ຍົກເລີກ</span>
                         </div>
                         <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -731,7 +731,7 @@ const Shipment: React.FC = () => {
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                           </div>
-                          <span className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>จัดส่งสำเร็จ</span>
+                          <span className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>ຈັດສົ່ງສຳເລັດ</span>
                         </div>
                         <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -752,7 +752,7 @@ const Shipment: React.FC = () => {
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                             </svg>
                           </div>
-                          <span className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>ยกเลิก</span>
+                          <span className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>ຍົກເລີກ</span>
                         </div>
                         <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -771,11 +771,11 @@ const Shipment: React.FC = () => {
       {showSuccessPopup && (
         <div className="fixed top-4 right-4 z-50">
           <div className={`px-6 py-4 rounded-lg shadow-lg flex items-center space-x-3 ${
-            successMessage.includes('สำเร็จ') 
+            successMessage.includes('ສຳເລັດ') 
               ? 'bg-green-500 text-white' 
               : 'bg-red-500 text-white'
           }`}>
-            {successMessage.includes('สำเร็จ') ? (
+            {successMessage.includes('ສຳເລັດ') ? (
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
