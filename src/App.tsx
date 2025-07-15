@@ -14,6 +14,8 @@ import Review from "./pages/Product/Review";
 import Wishlist from "./pages/Product/Wishlist";
 import Activities from "./pages/Activities";
 import Notifications from "./pages/Notifications";
+import OrderHistory from "./pages/OrderHistory/OrderHistory";
+import Customer from "./pages/Customer/Customer";
 import ProtectedRoute from "../src/components/ProtectedRoute/ProtectedRoute";
 // import AdminProtectRoute from "../src/components/ProtectedRoute/AdminProtectRoute";
 
@@ -38,8 +40,10 @@ export default function App() {
           {/* <Route path="/form-elements" element={<FormElements />} /> */}
           <Route path="/shipment" element={<Shipment />} />
           <Route path="/users" element={<User />} />
+          <Route path="/customers" element={<Customer />} />
           <Route path="/activities" element={<Activities />} />
           <Route path="/notifications" element={<Notifications />} />
+          <Route path="/order-history" element={<OrderHistory />} />
 
           {/* product route */}
           <Route path="/products" element={<Product />} />
